@@ -66,6 +66,20 @@ jobs:
           Start-Process msiexec.exe -ArgumentList "/i", "`"$installerPath`"", "/quiet", "/norestart" -Wait
           Remove-Item $installerPath -Force
 
+      - name: Install VS Code
+        shell: powershell
+        run: |
+          choco install vscode -y
+
+      - name: Install MetaTrader 5
+        shell: powershell
+        run: |
+          $url = "https://download.mql5.com/cdn/web/metaquotes.software.corp/mt5/mt5setup.exe"
+          $installer = "$env:TEMP\mt5setup.exe"
+      
+          Invoke-WebRequest $url -OutFile $installer
+          Start-Process $installer -ArgumentList "/silent" -Wait
+
       - name: Establish Tailscale Connection
         run: |
           # Bring up Tailscale with the provided auth key and set a unique hostname

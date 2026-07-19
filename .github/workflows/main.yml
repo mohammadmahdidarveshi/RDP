@@ -85,11 +85,6 @@ jobs:
               exit 1
           }
           echo "TAILSCALE_IP=$tsIP" >> $env:GITHUB_ENV
-
-      - name: Install VS Code
-        shell: powershell
-        run: |
-          choco install vscode -y
       
       - name: Verify RDP Accessibility
         run: |
